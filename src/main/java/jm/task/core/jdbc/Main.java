@@ -5,12 +5,9 @@ import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.util.Util;
 
 public class Main {
-    private static final String URL = "jdbc:mysql://localhost:3306/lesson1";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "Lendondonovan1";
+
     public static void main(String[] args) {
-        Util util = new Util();
-        util.getConnection(URL, USERNAME, PASSWORD);
+
         UserDao userDao = new UserDaoJDBCImpl();
 
         userDao.createUsersTable();
