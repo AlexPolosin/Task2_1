@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private static final String URL = "jdbc:mysql://localhost:3306/lesson1";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "Lendondonovan1";
-    Util util = new Util();
-    Connection connection = util.getConnection(URL, USERNAME, PASSWORD);
+
+    private Util util = new Util();
+    private Connection connection = util.getConnection();
 
     public UserDaoJDBCImpl() {
 
