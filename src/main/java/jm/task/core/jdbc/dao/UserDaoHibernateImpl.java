@@ -17,6 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
 
     }
+
     @Override
     public void createUsersTable() {
         try (Session session = sessionFactory.openSession();) {
@@ -49,7 +50,10 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(user);
             transaction.commit();
         } catch (Exception e) {
-            throw new RuntimeException();
+            if (transaction != null) {
+                transaction.rollback();
+                throw new RuntimeException();
+            }
         }
     }
 
@@ -61,7 +65,10 @@ public class UserDaoHibernateImpl implements UserDao {
             session.delete(user);
             transaction.commit();
         } catch (Exception e) {
-            throw new RuntimeException();
+            if (transaction != null) {
+                transaction.rollback();
+                throw new RuntimeException();
+            }
         }
 
     }
@@ -74,8 +81,12 @@ public class UserDaoHibernateImpl implements UserDao {
             list = session.createQuery("From User", User.class).getResultList();
             transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
                 throw new RuntimeException();
-        } return list;
+            }
+        }
+        return list;
     }
 
     @Override
